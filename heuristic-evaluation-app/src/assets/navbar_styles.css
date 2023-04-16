@@ -1,0 +1,5 @@
+/* Establecer el fondo a un tono de azul */
+body {
+  --tw-bg-opacity: 1;
+    background-color: rgb(15 23 42/var(--tw-bg-opacity));
+}
