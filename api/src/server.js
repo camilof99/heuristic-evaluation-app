@@ -34,7 +34,7 @@ app.post("/api/login", async (req, res) => {
         console.log('====================================');
 
         const query_sql =
-            "SELECT email, password FROM user WHERE email = ? AND password = ?";
+            "SELECT email, password FROM users WHERE email = ? AND password = ?";
 
         connection.query(query_sql, [email, password], (error, results) => {
             if (error) {
@@ -54,25 +54,34 @@ app.post("/api/login", async (req, res) => {
     }
 });
 
-// app.get("/api/login", async (req, res) => {
-//     try {
-//         const query_sql = "SELECT username, password FROM user";
+app.get("/api/projects", async (req, res) => {
+    const query = 'SELECT * FROM projects';
 
-//         connection.query(query_sql, (error, results) => {
-//             if (error) {
-//                 console.error("Error en la consulta: ", error);
-//                 res.status(500).send("Error interno del servidor.");
-//             } else {
-//                 const users = results;
-//                 console.log(users);
-//                 res.send(users);
-//             }
-//         });
-//     } catch (error) {
-//         console.error("Error en la consulta: ", error);
-//         res.status(500).send("Error interno del servidor.");
-//     }
-// });
+    connection.query(query, (error, results) => {
+        if (error) {
+            console.error("Error al obtener los datos de la tabla:", error);
+            res.status(500).json({ error: "Error al obtener los datos" });
+            return;
+        }
+
+        res.json(results);
+    });
+});
+
+app.get("/api/projects/:id", async (req, res) => {
+    const projectId = req.params.id;
+    const query = "SELECT * FROM projects WHERE id = ?";
+
+    connection.query(query, [projectId], (error, results) => {
+        if (error) {
+            console.error("Error al obtener los datos de la tabla:", error);
+            res.status(500).json({ error: "Error al obtener los datos" });
+            return;
+        }
+
+        res.json(results);
+    });
+});
 
 app.listen(3000, () => {
     console.log("Servidor corriendo en el puerto 3000");
