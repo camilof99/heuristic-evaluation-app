@@ -1,10 +1,14 @@
-import { useState } from "react";
+
 import Navbar from "../components/NavBar";
 
 function Home() {
     
     return (
-        <Navbar/>
+        <>
+            <div className="flex flex-col p-4 h-screen border border-red-400">
+                <Navbar />
+            </div>
+        </>
     );
         
 }

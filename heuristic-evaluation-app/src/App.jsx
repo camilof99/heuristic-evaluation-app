@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import LoginForm from './components/LoginForm';
 import Home from "./pages/home";
+import Projects from "./pages/projects";
+import Evaluation from "./pages/Evaluation";
 
 
 function App() {
@@ -17,7 +19,8 @@ function App() {
   return (
       <BrowserRouter>
           <Routes>
-              <Route path="/"
+              <Route
+                  path="/"
                   element={
                       authenticated ? (
                           <Navigate to="/home" />
@@ -28,8 +31,13 @@ function App() {
               />
               <Route
                   path="/home"
-                  element={authenticated ? <Home /> : <Navigate to="/" />}
+                  element={
+                      /* authenticated ?  */ <Home /> /* : <Navigate to="/" /> */
+                  }
               />
+              <Route path="/proyectos" element={<Projects />} />
+              <Route path="/evaluation/:id" element={<Evaluation />} />ss
+
               <Route
                   path="/logout"
                   element={<Logout setAuthenticated={setAuthenticated} />}
