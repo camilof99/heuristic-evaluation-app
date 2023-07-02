@@ -27,11 +27,11 @@ app.post("/api/login", async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        console.log('====================================');
+        console.log("====================================");
         console.log(email);
         console.log(password);
         console.log(req.body);
-        console.log('====================================');
+        console.log("====================================");
 
         const query_sql =
             "SELECT email, password FROM users WHERE email = ? AND password = ?";
@@ -55,7 +55,7 @@ app.post("/api/login", async (req, res) => {
 });
 
 app.get("/api/projects", async (req, res) => {
-    const query = 'SELECT * FROM projects';
+    const query = "SELECT * FROM projects";
 
     connection.query(query, (error, results) => {
         if (error) {
@@ -81,6 +81,83 @@ app.get("/api/projects/:id", async (req, res) => {
 
         res.json(results);
     });
+});
+
+app.get("/api/heuristics", async (req, res) => {
+    const projectId = req.params.id;
+    const query =
+        "SELECT c.*, (h.description) heuristic FROM criteria c, heuristics h WHERE c.id_heuristic = h.id;";
+
+    connection.query(query, [projectId], (error, results) => {
+        if (error) {
+            console.error("Error al obtener los datos de la tabla:", error);
+            res.status(500).json({ error: "Error al obtener los datos" });
+            return;
+        }
+
+        res.json(results);
+    });
+});
+
+app.post("/api/evaluate", async (req, res) => {
+    const { ratings, idProject } = req.body;
+
+    for (const key in ratings) {
+        if (ratings.hasOwnProperty(key)) {
+            const rating = ratings[key];
+            const idHeuristic = rating.idHeuristic;
+            const ratingValue = rating.rating;
+
+            const datos = {
+                valoration: ratingValue,
+                id_project: idProject,
+                id_heuristic: idHeuristic,
+                id_criteria: key,
+            };
+
+            const selectQuery =
+                "SELECT * FROM evaluation WHERE id_project = ? AND id_heuristic = ? AND id_criteria = ?";
+
+            const query = "INSERT INTO evaluation SET ?";
+
+            connection.query(
+                selectQuery,
+                [
+                    datos.id_project,
+                    datos.id_heuristic,
+                    datos.id_criteria,
+                ],
+                (error, results) => {
+                    if (error) {
+                        console.error(
+                            "Error al verificar los |datos existentes:",
+                            error
+                        );
+                        return;
+                    }
+
+                    if (results.length > 0) {
+                        console.log(
+                            "Ya existe un registro con los mismos valores."
+                        );
+                        return;
+                    }
+
+                    const insertQuery = "INSERT INTO evaluation SET ?";
+                    connection.query(insertQuery, datos, (error, results) => {
+                        if (error) {
+                            console.error(
+                                "Error al insertar los datos:",
+                                error
+                            );
+                        } else {
+                            console.log("Datos insertados correctamente.");
+                        }
+                    });
+                }
+            );
+        }
+    }
 });
 
 app.listen(3000, () => {

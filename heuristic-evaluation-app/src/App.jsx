@@ -4,6 +4,7 @@ import LoginForm from './components/LoginForm';
 import Home from "./pages/home";
 import Projects from "./pages/projects";
 import Evaluation from "./pages/Evaluation";
+import EvaluationFinish from "./pages/EvaluationFinish";
 
 
 function App() {
@@ -36,7 +37,8 @@ function App() {
                   }
               />
               <Route path="/proyectos" element={<Projects />} />
-              <Route path="/evaluation/:id" element={<Evaluation />} />ss
+              <Route path="/evaluation/:id" element={<Evaluation />} />
+              <Route path="/evaluationfinish" element={<EvaluationFinish />} />
 
               <Route
                   path="/logout"
