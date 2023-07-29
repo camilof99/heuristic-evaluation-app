@@ -160,6 +160,21 @@ app.post("/api/evaluate", async (req, res) => {
     }
 });
 
+app.get("/api/evaluationresults/:idProject", async (req, res) => {
+    const idProject = req.params.idProject;
+    const query = "SELECT * FROM evaluation WHERE id_project = ?";
+
+    connection.query(query, [idProject], (error, results) => {
+        if (error) {
+            console.error("Error al obtener los datos de la tabla:", error);
+            res.status(500).json({ error: "Error al obtener los datos" });
+            return;
+        }
+
+        res.json(results);
+    });
+});
+
 app.listen(3000, () => {
     console.log("Servidor corriendo en el puerto 3000");
 });

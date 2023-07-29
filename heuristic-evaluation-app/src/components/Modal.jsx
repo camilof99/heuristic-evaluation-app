@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useFetchData } from "./../apis/UseFetchData";
+import { useFetchData } from "../hooks/UseFetchData";
 import EvaluationHeuristic from "./EvaluationHeuristic";
 
 const Modal = ({idProject, isOpen, onClose }) => {

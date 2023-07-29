@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import { useFetchData } from "../apis/UseFetchData";
+import { useFetchData } from "../hooks/UseFetchData";
 import Modal from "../components/Modal";
 
 const Evaluation = () => {

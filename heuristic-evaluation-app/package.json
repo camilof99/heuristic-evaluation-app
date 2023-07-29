@@ -18,6 +18,7 @@
     "body-parser": "^1.20.2",
     "buffer": "^6.0.3",
     "cors": "^2.8.5",
+    "echarts-for-react": "^3.0.2",
     "esm": "^3.2.25",
     "eventemitter3": "^5.0.0",
     "localforage": "^1.10.0",
