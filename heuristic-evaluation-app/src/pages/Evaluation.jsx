@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useFetchData } from "../hooks/UseFetchData";
-import Modal from "../components/Modal";
+import ModalEvaluation from './../components/ModalEvaluation';
 
 const Evaluation = () => {
     const { id } = useParams();
@@ -80,7 +80,7 @@ const Evaluation = () => {
                 </button>
             )}
 
-            <Modal idProject={id} isOpen={isModalOpen} onClose={handleToggleModal} />
+            <ModalEvaluation idProject={id} isOpen={isModalOpen} onClose={handleToggleModal} />
         </div>
     );
 };

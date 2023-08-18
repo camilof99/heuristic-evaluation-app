@@ -3,7 +3,6 @@ import Navbar from '../components/NavBar';
 import { useParams } from 'react-router-dom';
 import { useFetchData } from '../hooks/UseFetchData';
 import ReactECharts from 'echarts-for-react';
-import { log } from './../../node_modules/echarts/lib/util/log';
 
 const EvaluationResults = () => {
     const { idProject } = useParams();

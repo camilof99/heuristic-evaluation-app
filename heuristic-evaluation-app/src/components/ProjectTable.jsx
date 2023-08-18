@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import ModalNewProject from "./ModalNewProject";
 
 function ProjectTable({ datos, handleButtonClick, handleResultButtonClick }) {
+    
+    const [isModalOpen, setModalOpen] = useState(false);
+
+    const handleToggleModal = () => {
+        setModalOpen(!isModalOpen);
+    };
+
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
             <div className="flex items-center justify-between pb-4">
                 <div>
                     <button
+                        onClick={handleToggleModal}
                         id="dropdownRadioButton"
                         data-dropdown-toggle="dropdownRadio"
                         className="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
@@ -33,6 +42,9 @@ function ProjectTable({ datos, handleButtonClick, handleResultButtonClick }) {
                         </svg>
                         &nbsp;Nuevo proyecto
                     </button>
+                    {isModalOpen && (
+                        <ModalNewProject onClose={handleToggleModal} />
+                    )}
                 </div>
                 <label className="sr-only">Search</label>
                 <div className="relative">

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useFetchData } from "../hooks/UseFetchData";
 import EvaluationHeuristic from "./EvaluationHeuristic";
 
-const Modal = ({idProject, isOpen, onClose }) => {
+const ModalEvaluation = ({ idProject, isOpen, onClose }) => {
     const url = "http://localhost:3000/api/heuristics";
     const datos = useFetchData(url);
 
@@ -58,4 +58,4 @@ const Modal = ({idProject, isOpen, onClose }) => {
     );
 };
 
-export default Modal;
+export default ModalEvaluation;
