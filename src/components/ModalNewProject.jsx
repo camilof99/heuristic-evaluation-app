@@ -1,11 +1,13 @@
 import React, { useState } from "react";
+import { usePostData } from "../hooks/usePostData";
+import { useFetchData } from "../hooks/UseFetchData";
 
 const ModalNewProject = ({ onClose }) => {
     const [projectInfo, setProjectInfo] = useState({
         description: "",
         url: "",
-        idCoordinator: "yourCoordinatorID",
-        evaluator: "No especificado",
+        id_coordinator: "",
+        id_evaluator: "",
     });
 
     const handleInputChange = (e) => {
@@ -22,11 +24,26 @@ const ModalNewProject = ({ onClose }) => {
         }
     };
 
-    const handleSubmit = () => {
-        // Perform project creation logic here
-        console.log(projectInfo);
-        onClose();
+    const handleSubmit = async () => {
+        const postDataUrl = "http://localhost:3000/api/createProject"; // Replace with your API endpoint
+        try {
+            const response = await fetch(postDataUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(projectInfo),
+            });
+            const data = await response.json();
+            console.log("API response:", data);
+            onClose();
+        } catch (error) {
+            console.error("Error sending data to API:", error);
+        }
     };
+
+    const coordinators = useFetchData("http://localhost:3000/api/coordinators");
+    const evaluators = useFetchData("http://localhost:3000/api/evaluators");
 
     return (
         <div
@@ -87,26 +104,43 @@ const ModalNewProject = ({ onClose }) => {
                                 <label className="text-sm font-medium text-gray-900 dark:text-white">
                                     ID Coordinator:
                                 </label>
-                                <input
-                                    type="text"
-                                    name="idCoordinator"
-                                    value={projectInfo.idCoordinator}
-                                    disabled
-                                    className="w-36 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 sm:text-sm bg-gray-100"
-                                />
+                                <select
+                                    name="id_coordinator"
+                                    value={projectInfo.id_coordinator}
+                                    onChange={handleInputChange}
+                                    className="w-36 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                >
+                                    <option value="">Select Coordinator</option>
+                                    {coordinators.map((coordinator) => (
+                                        <option
+                                            key={coordinator.id}
+                                            value={coordinator.id}
+                                        >
+                                            {coordinator.name}{" "}
+                                            {/* Adjust the property names */}
+                                        </option>
+                                    ))}
+                                </select>
 
                                 <label className="text-sm font-medium text-gray-900 dark:text-white">
                                     Evaluator:
                                 </label>
                                 <select
-                                    name="evaluator"
-                                    value={projectInfo.evaluator}
+                                    name="id_evaluator"
+                                    value={projectInfo.id_evaluator}
                                     onChange={handleInputChange}
                                     className="w-36 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                                 >
-                                    <option value="defaultEvaluator">
-                                        No especificado
-                                    </option>
+                                    <option value="">Select Evaluator</option>
+                                    {evaluators.map((evaluator) => (
+                                        <option
+                                            key={evaluator.id}
+                                            value={evaluator.id}
+                                        >
+                                            {evaluator.name}{" "}
+                                            {/* Adjust the property names */}
+                                        </option>
+                                    ))}
                                 </select>
                             </div>
                         </div>

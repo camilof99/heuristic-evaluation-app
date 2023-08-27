@@ -62,10 +62,11 @@ const EvaluationResults = () => {
     console.log('Promedio Usabilidad: ' + (sumMean/11)/5*100);
 
     const chartOptions = generateChartOptions(data);
+    const scoreChartOptions = generateScoreChartOptions(data);
 
     return (
         <>
-            <div className="flex flex-col p-4 h-screen border border-red-400">
+            <div className="flex flex-col p-4 h-full border border-red-400">
                 <Navbar />
                 <div className="w-full flex-1 p-6 border border-blue-400 bg-white dark:bg-gray-900 rounded-md shadow-xl">
                     <div className="text-center">
@@ -130,10 +131,14 @@ const EvaluationResults = () => {
                                 Desviación estándar - Resultados:
                             </h3>
                             <ReactECharts option={chartOptions} />
-                            <h3 className="px-8 text-white">
-                                Recomendaciones:
+                            <h3 className="px-8 text-white text-center mt-8">
+                                Puntaje - Resultados:
                             </h3>
+                            <ReactECharts option={scoreChartOptions} />
                         </div>
+                    </div>
+                    <div>
+                        <h3 className="px-8 text-white">Recomendaciones:</h3>
                     </div>
                 </div>
             </div>
@@ -148,6 +153,31 @@ const generateChartOptions = (data) => {
     const seriesData = Object.values(data).map((item) =>
         item.standardDeviation.toFixed(3)
     );
+
+    return {
+        xAxis: {
+            type: "category",
+            data: xAxisData,
+        },
+        yAxis: {
+            type: "value",
+        },
+        series: [
+            {
+                type: "bar",
+                data: seriesData,
+                label: {
+                    show: true,
+                    formatter: "{c}",
+                },
+            },
+        ],
+    };
+};
+
+const generateScoreChartOptions = (data) => {
+    const xAxisData = Object.keys(data);
+    const seriesData = Object.values(data).map((item) => item.mean.toFixed(3));
 
     return {
         xAxis: {
