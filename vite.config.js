@@ -3,11 +3,6 @@ import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+    base: "/heuristic-evaluation-app/",
     plugins: [react()],
-    esbuild: {
-        jsxFactory: "h",
-        jsxFragment: "Fragment",
-        // Agregue esta línea
-        format: "esm",
-    },
 });
