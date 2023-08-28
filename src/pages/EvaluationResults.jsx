@@ -6,7 +6,7 @@ import ReactECharts from 'echarts-for-react';
 
 const EvaluationResults = () => {
     const { idProject } = useParams();
-    const url = `http://localhost:3000/api/evaluationresults/${idProject}`;
+    const url = `https://heuristic-evaluation-api-fxov-dev.fl0.io/api/evaluationresults/${idProject}`;
 
     const results = useFetchData(url);
 

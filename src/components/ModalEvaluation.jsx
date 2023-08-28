@@ -3,7 +3,7 @@ import { useFetchData } from "../hooks/UseFetchData";
 import EvaluationHeuristic from "./EvaluationHeuristic";
 
 const ModalEvaluation = ({ idProject, isOpen, onClose }) => {
-    const url = "http://localhost:3000/api/heuristics";
+    const url = "https://heuristic-evaluation-api-fxov-dev.fl0.io/api/heuristics";
     const datos = useFetchData(url);
 
     const [HeuristicName, setHeuristicName] = useState("");

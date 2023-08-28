@@ -5,7 +5,7 @@ import ModalEvaluation from './../components/ModalEvaluation';
 
 const Evaluation = () => {
     const { id } = useParams();
-    const url = `http://localhost:3000/api/projects/${id}`;
+    const url = `https://heuristic-evaluation-api-fxov-dev.fl0.io/api/projects/${id}`;
     const datos = useFetchData(url);
     const [isModalOpen, setModalOpen] = useState(false);
 

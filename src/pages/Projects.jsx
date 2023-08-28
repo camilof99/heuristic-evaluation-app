@@ -12,7 +12,9 @@ function Projects() {
         navigate(`/evaluation/${id}`);
     };
 
-    const datos = useFetchData("http://localhost:3000/api/projects");
+    const datos = useFetchData(
+        "https://heuristic-evaluation-api-fxov-dev.fl0.io/api/projects"
+    );
 
     const handleResultButtonClick = (idProject) => {
         navigate(`/evaluationresults/${idProject}`);

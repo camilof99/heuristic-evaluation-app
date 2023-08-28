@@ -12,7 +12,7 @@ const EvaluationFinish = () => {
     const isMountedRef = useRef(false);
 
    useEffect(() => {
-       const postDataUrl = "http://localhost:3000/api/evaluate";
+       const postDataUrl = "https://heuristic-evaluation-api-fxov-dev.fl0.io/api/evaluate";
 
        const fetchData = async () => {
            try {

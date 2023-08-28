@@ -13,7 +13,7 @@ const useAuthentication = (props) => {
         console.log("Username:", email);
         console.log("Password:", password);
 
-        fetch("http://localhost:3000/api/login", {
+        fetch("https://heuristic-evaluation-api-fxov-dev.fl0.io/api/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

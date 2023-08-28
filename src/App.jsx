@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/home";
 import Projects from "./pages/projects";
 import Evaluation from "./pages/Evaluation";
@@ -12,6 +12,10 @@ function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const token = localStorage.getItem("token");
 
+  console.log('====================================');
+  console.log("Loading...");
+  console.log('====================================');
+
   useEffect(() => {
       if (token) {
           setAuthenticated(true);
@@ -19,7 +23,7 @@ function App() {
   }, [token]);
 
   return (
-      <BrowserRouter>
+      <HashRouter>
           <Routes>
               <Route
                   path="/"
@@ -50,7 +54,7 @@ function App() {
                   element={<Logout setAuthenticated={setAuthenticated} />}
               />
           </Routes>
-      </BrowserRouter>
+      </HashRouter>
   );
 }
 
