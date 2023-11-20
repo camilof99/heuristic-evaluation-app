@@ -25,7 +25,8 @@ const ModalNewProject = ({ onClose }) => {
     };
 
     const handleSubmit = async () => {
-        const postDataUrl = "https://heuristic-evaluation-api-fxov-dev.fl0.io/api/createProject";
+        const postDataUrl =
+            "https://heuristic-evaluation-api-dev-mxnt.4.us-1.fl0.io/api/createProject";
         try {
             const response = await fetch(postDataUrl, {
                 method: "POST",
@@ -42,9 +43,11 @@ const ModalNewProject = ({ onClose }) => {
         }
     };
 
-    const coordinators = useFetchData("https://heuristic-evaluation-api-fxov-dev.fl0.io/api/coordinators"
+    const coordinators = useFetchData(
+        "https://heuristic-evaluation-api-dev-mxnt.4.us-1.fl0.io/api/coordinators"
     );
-    const evaluators = useFetchData("https://heuristic-evaluation-api-fxov-dev.fl0.io/api/evaluators"
+    const evaluators = useFetchData(
+        "https://heuristic-evaluation-api-dev-mxnt.4.us-1.fl0.io/api/evaluators"
     );
 
     return (
