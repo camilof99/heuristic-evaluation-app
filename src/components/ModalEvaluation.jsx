@@ -4,7 +4,7 @@ import EvaluationHeuristic from "./EvaluationHeuristic";
 
 const ModalEvaluation = ({ idProject, isOpen, onClose }) => {
     const url =
-        "https://heuristic-evaluation-api-dev-mxnt.4.us-1.fl0.io/api/heuristics";
+        "https://heuristic-evaluation-api-dev-dres.4.us-1.fl0.io/api/heuristics";
     const datos = useFetchData(url);
 
     const [HeuristicName, setHeuristicName] = useState("");

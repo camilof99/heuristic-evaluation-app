@@ -13,7 +13,7 @@ const EvaluationFinish = () => {
 
    useEffect(() => {
        const postDataUrl =
-           "https://heuristic-evaluation-api-dev-mxnt.4.us-1.fl0.io/api/evaluate";
+           "https://heuristic-evaluation-api-dev-dres.4.us-1.fl0.io/api/evaluate";
 
        const fetchData = async () => {
            try {

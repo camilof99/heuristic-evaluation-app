@@ -14,7 +14,7 @@ const useAuthentication = (props) => {
         console.log("Password:", password);
 
         fetch(
-            "https://heuristic-evaluation-api-dev-mxnt.4.us-1.fl0.io/api/login",
+            "https://heuristic-evaluation-api-dev-dres.4.us-1.fl0.io/api/login",
             {
                 method: "POST",
                 headers: {
