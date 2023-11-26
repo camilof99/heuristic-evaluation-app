@@ -1,49 +1,16 @@
-import React, { useEffect, useRef } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom';
-import { usePostData } from '../hooks/usePostData';
-
+import React, { useEffect, useRef } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 const EvaluationFinish = () => {
-
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const idProject = queryParams.get("idProject");
-    const ratings = JSON.parse(queryParams.get("ratings"));
 
-    const isMountedRef = useRef(false);
-
-   useEffect(() => {
-       const postDataUrl =
-           "https://heuristic-evaluation-api-dev-dres.4.us-1.fl0.io/api/evaluate";
-
-       const fetchData = async () => {
-           try {
-               const response = await fetch(postDataUrl, {
-                   method: "POST",
-                   headers: {
-                       "Content-Type": "application/json",
-                   },
-                   body: JSON.stringify({
-                       idProject: idProject,
-                       ratings: ratings,
-                   }),
-               });
-               const data = await response.json();
-               console.log("API response:", data);
-           } catch (error) {
-               console.error("Error sending data to API:", error);
-           }
-       };
-
-       fetchData();
-   }, [idProject, ratings]);
-
-    
     const navigate = useNavigate();
 
     const handleButtonClick = (idProject) => {
         navigate(`/evaluationresults/${idProject}`);
     };
-    
+
     return (
         <div class="flex flex-col items-center justify-center h-screen">
             <div
@@ -70,7 +37,6 @@ const EvaluationFinish = () => {
             </div>
         </div>
     );
-
 };
 
 export default EvaluationFinish;

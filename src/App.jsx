@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/home";
-import Projects from "./pages/projects";
+import Projects from "./pages/Projects";
 import Evaluation from "./pages/Evaluation";
 import EvaluationFinish from "./pages/EvaluationFinish";
 import EvaluationResults from "./pages/EvaluationResults";

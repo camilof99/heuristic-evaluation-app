@@ -127,14 +127,15 @@ const EvaluationResults = () => {
                             </table>
                         </div>
                         <div className="w-1/2">
-                            <h3 className="px-8 text-white text-center">
-                                Desviación estándar - Resultados:
-                            </h3>
-                            <ReactECharts option={chartOptions} />
                             <h3 className="px-8 text-white text-center mt-8">
                                 Puntaje - Resultados:
                             </h3>
                             <ReactECharts option={scoreChartOptions} />
+
+                            <h3 className="px-8 text-white text-center">
+                                Desviación estándar - Resultados:
+                            </h3>
+                            <ReactECharts option={chartOptions} />
                         </div>
                     </div>
                     <div>

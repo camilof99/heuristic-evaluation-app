@@ -7,7 +7,7 @@ function LoginForm(props) {
 
     return (
         <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
-            <div className="w-full p-6 m-auto rounded-md shadow-xl shadow-blue-600/40 ring ring-2 ring-blue-600 lg:max-w-xl">
+            <div className="w-full p-6 m-auto rounded-md shadow-xl shadow-blue-600/40 ring ring-blue-600 lg:max-w-xl">
                 <h1 className="text-3xl font-semibold text-center text-green-700 underline uppercase decoration-wavy">
                     Sign in
                 </h1>
