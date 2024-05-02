@@ -1,10 +1,15 @@
 import { useState } from "react";
 import "../assets/navbar_styles.css";
 import { Link } from "react-router-dom";
+import { useFetchData } from "../hooks/UseFetchData";
 
 function Navbar() {
 
     const [menuOpen, setMenuOpen] = useState(false);
+
+    const datos = useFetchData(
+        "https://heuristic-evaluation-api-dev-dres.4.us-1.fl0.io/api/projects"
+    );
 
     return (
         <>
@@ -30,7 +35,7 @@ function Navbar() {
                                     />
                                 </svg>
                                 <span className="ms-3">
-                                    Heuristic Evaluation
+                                    HeuriCheck
                                 </span>
                             </a>
                             <button
@@ -101,7 +106,7 @@ function Navbar() {
                                             Proyectos
                                         </span>
                                         <span className="inline-flex items-center justify-center w-2 h-2 p-2 ms-2 text-xs font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">
-                                            3
+                                            { datos.length } 
                                         </span>
                                     </Link>
                                 </li>

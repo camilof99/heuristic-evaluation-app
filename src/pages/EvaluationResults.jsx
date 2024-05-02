@@ -1,14 +1,30 @@
-import React from 'react'
-import Navbar from '../components/NavBar';
-import { useParams } from 'react-router-dom';
-import { useFetchData } from '../hooks/UseFetchData';
-import ReactECharts from 'echarts-for-react';
+import React from "react";
+import Navbar from "../components/NavBar";
+import { useParams } from "react-router-dom";
+import { useFetchData } from "../hooks/UseFetchData";
+import ReactECharts from "echarts-for-react";
 
 const EvaluationResults = () => {
     const { idProject } = useParams();
     const url = `https://heuristic-evaluation-api-dev-dres.4.us-1.fl0.io/api/evaluationresults/${idProject}`;
 
     const results = useFetchData(url);
+
+    console.log(results);
+
+    const resultsByProject = results.reduce((acc, result) => {
+        const projectId = result.id_project;
+        if (!acc[projectId]) {
+            acc[projectId] = [];
+        }
+        acc[projectId].push(result);
+        return acc;
+    }, {});
+
+     console.log(resultsByProject);
+     const projectIds = Object.keys(resultsByProject);
+     console.log(projectIds.length);
+     console.log(projectIds);
 
     const data = {};
 
@@ -59,10 +75,21 @@ const EvaluationResults = () => {
         0
     );
 
-    console.log('Promedio Usabilidad: ' + (sumMean/11)/5*100);
+    const proMean = Object.values(data).reduce(
+        (total, item) => total + item.mean,
+        0
+    );
+
+    const proUsa = proMean / 11;
+    const porCum = (sumMean / 11 / 5) * 100;
+    
+    console.log("Promedio Usabilidad: " + proUsa);
+    console.log("Porcentaje Cumplimiento: " + porCum);
 
     const chartOptions = generateChartOptions(data);
     const scoreChartOptions = generateScoreChartOptions(data);
+    const porceChartOptions = generatePorceChartOptions(data);
+
 
     return (
         <>
@@ -70,9 +97,28 @@ const EvaluationResults = () => {
                 <Navbar />
                 <div className="w-full flex-1 p-6 border border-blue-400 bg-white dark:bg-gray-900 rounded-md shadow-xl">
                     <div className="text-center">
-                        <span class="bg-green-100 text-green-800 text-xl font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
-                            Nivel de usabilidad:{" "}
-                            {((sumMean / 11 / 5) * 100).toFixed(3)}%
+                        <span
+                            className={`text-xl font-medium mr-2 px-2.5 py-0.5 rounded-full ${
+                                proUsa >= 4
+                                    ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300"
+                                    : proUsa >= 3
+                                    ? "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300"
+                                    : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300"
+                            }`}
+                        >
+                            Promedio general de usabilidad: {proUsa.toFixed(3)}
+                        </span>
+
+                        <span
+                            className={`text-xl font-medium mr-2 px-2.5 py-0.5 rounded-full ${
+                                porCum >= 80
+                                    ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300"
+                                    : porCum >= 60
+                                    ? "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300"
+                                    : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300"
+                            }`}
+                        >
+                            Porcentaje cumplimiento: {porCum.toFixed(3)}%
                         </span>
                     </div>
                     <br />
@@ -88,7 +134,10 @@ const EvaluationResults = () => {
                                             Criterios evaluados
                                         </th>
                                         <th scope="col" className="px-6 py-3">
-                                            Puntaje
+                                            Promedio evaluación
+                                        </th>
+                                        <th scope="col" className="px-6 py-3">
+                                            Porcentaje cumplimiento
                                         </th>
                                         <th scope="col" className="px-6 py-3">
                                             Desviación estandar
@@ -115,37 +164,92 @@ const EvaluationResults = () => {
                                                     {count}
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                    {mean}
+                                                    {Number.isInteger(mean)
+                                                        ? mean.toFixed(0)
+                                                        : mean.toFixed(3)}
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                    {standardDeviation}
+                                                    {Number.isInteger(
+                                                        (mean / 5) * 100
+                                                    )
+                                                        ? (
+                                                              (mean / 5) *
+                                                              100
+                                                          ).toFixed(0)
+                                                        : (
+                                                              (mean / 5) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                    %
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    {Number.isInteger(
+                                                        standardDeviation
+                                                    )
+                                                        ? standardDeviation.toFixed(
+                                                              0
+                                                          )
+                                                        : standardDeviation.toFixed(
+                                                              3
+                                                          )}
                                                 </td>
                                             </tr>
                                         )
                                     )}
                                 </tbody>
                             </table>
-                        </div>
-                        <div className="w-1/2">
-                            <h3 className="px-8 text-white text-center mt-8">
-                                Puntaje - Resultados:
-                            </h3>
-                            <ReactECharts option={scoreChartOptions} />
 
-                            <h3 className="px-8 text-white text-center">
-                                Desviación estándar - Resultados:
+                            <br />
+
+                            <h3 className="px-6 text-white">
+                                Recomendaciones:
                             </h3>
-                            <ReactECharts option={chartOptions} />
+                        </div>
+                        <div
+                            className="w-1/2"
+                            style={{
+                                marginBottom: "50px",
+                            }}
+                        >
+                            <ReactECharts
+                                option={scoreChartOptions}
+                                style={{
+                                    marginBottom: "-20px",
+                                }}
+                            />
+                            <p className="px-8 text-white text-center">
+                                Promedio evaluación por heurística
+                            </p>
+
+                            <ReactECharts
+                                option={chartOptions}
+                                style={{
+                                    marginBottom: "-20px",
+                                }}
+                            />
+                            <h3 className="px-8 text-white text-center">
+                                Desviación estándar por heurística
+                            </h3>
+
+                            <ReactECharts
+                                option={porceChartOptions}
+                                style={{
+                                    marginBottom: "-20px",
+                                }}
+                            />
+                            <p className="px-8 text-white text-center">
+                                Porcentaje cumplimiento por heurística
+                            </p>
                         </div>
                     </div>
                     <div>
-                        <h3 className="px-8 text-white">Recomendaciones:</h3>
+
                     </div>
                 </div>
             </div>
         </>
     );
-}
+};
 
 export default EvaluationResults;
 
@@ -195,6 +299,31 @@ const generateScoreChartOptions = (data) => {
                 label: {
                     show: true,
                     formatter: "{c}",
+                },
+            },
+        ],
+    };
+};
+
+const generatePorceChartOptions = (data) => {
+    const xAxisData = Object.keys(data);
+    const seriesData = Object.values(data).map((item) => ((item.mean/5)*100).toFixed(2));
+
+    return {
+        xAxis: {
+            type: "category",
+            data: xAxisData,
+        },
+        yAxis: {
+            type: "value",
+        },
+        series: [
+            {
+                type: "line",
+                data: seriesData,
+                label: {
+                    show: true,
+                    formatter: "{c} %",
                 },
             },
         ],

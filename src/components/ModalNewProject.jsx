@@ -57,7 +57,7 @@ const ModalNewProject = ({ onClose }) => {
             className={`fixed inset-0 m-20 z-50 flex items-center justify-center`}
         >
             <div className="relative w-full max-w-4xl max-h-full">
-                <div className="relative bg-white rounded-lg dark:bg-gray-700 border border-purple-500 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-900/80">
+                <div className="relative bg-white rounded-lg dark:bg-gray-800 border border-purple-500 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-900/80">
                     <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                         <div className="flex items-center">
                             {" "}
