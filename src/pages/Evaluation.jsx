@@ -28,7 +28,7 @@ const Evaluation = () => {
     }, []);
 
     const { id } = useParams();
-    const url = `https://heuristic-evaluation-api-dev-dres.4.us-1.fl0.io/api/projects/${id}`;
+    const url = `https://web-production-1635.up.railway.app/api/projects/${id}`;
     const datos = useFetchData(url);
     const [isModalOpen, setModalOpen] = useState(false);
 

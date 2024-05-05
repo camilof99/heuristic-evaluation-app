@@ -8,7 +8,7 @@ function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
 
     const datos = useFetchData(
-        "https://heuristic-evaluation-api-dev-dres.4.us-1.fl0.io/api/projects"
+        "https://web-production-1635.up.railway.app/api/projects"
     );
 
     return (

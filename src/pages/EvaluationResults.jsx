@@ -6,7 +6,7 @@ import ReactECharts from "echarts-for-react";
 
 const EvaluationResults = () => {
     const { idProject } = useParams();
-    const url = `https://heuristic-evaluation-api-dev-dres.4.us-1.fl0.io/api/evaluationresults/${idProject}`;
+    const url = `https://web-production-1635.up.railway.app/api/evaluationresults/${idProject}`;
 
     const results = useFetchData(url);
 
@@ -262,7 +262,19 @@ const generateChartOptions = (data) => {
     return {
         xAxis: {
             type: "category",
-            data: xAxisData,
+            data: [
+                "H1",
+                "H2",
+                "H3",
+                "H4",
+                "H5",
+                "H6",
+                "H7",
+                "H8",
+                "H9",
+                "H10",
+                "H11"
+            ],
         },
         yAxis: {
             type: "value",
@@ -287,7 +299,19 @@ const generateScoreChartOptions = (data) => {
     return {
         xAxis: {
             type: "category",
-            data: xAxisData,
+            data: [
+                "H1",
+                "H2",
+                "H3",
+                "H4",
+                "H5",
+                "H6",
+                "H7",
+                "H8",
+                "H9",
+                "H10",
+                "H11",
+            ],
         },
         yAxis: {
             type: "value",
@@ -312,7 +336,19 @@ const generatePorceChartOptions = (data) => {
     return {
         xAxis: {
             type: "category",
-            data: xAxisData,
+            data: [
+                "H1",
+                "H2",
+                "H3",
+                "H4",
+                "H5",
+                "H6",
+                "H7",
+                "H8",
+                "H9",
+                "H10",
+                "H11",
+            ],
         },
         yAxis: {
             type: "value",

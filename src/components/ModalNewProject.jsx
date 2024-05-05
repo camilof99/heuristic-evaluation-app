@@ -26,7 +26,7 @@ const ModalNewProject = ({ onClose }) => {
 
     const handleSubmit = async () => {
         const postDataUrl =
-            "https://heuristic-evaluation-api-dev-dres.4.us-1.fl0.io/api/createProject";
+            "https://web-production-1635.up.railway.app/api/createProject";
         try {
             const response = await fetch(postDataUrl, {
                 method: "POST",
@@ -44,10 +44,10 @@ const ModalNewProject = ({ onClose }) => {
     };
 
     const coordinators = useFetchData(
-        "https://heuristic-evaluation-api-dev-dres.4.us-1.fl0.io/api/coordinators"
+        "https://web-production-1635.up.railway.app/api/coordinators"
     );
     const evaluators = useFetchData(
-        "https://heuristic-evaluation-api-dev-dres.4.us-1.fl0.io/api/evaluators"
+        "https://web-production-1635.up.railway.app/api/evaluators"
     );
 
     return (

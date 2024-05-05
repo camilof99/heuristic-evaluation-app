@@ -13,16 +13,13 @@ const useAuthentication = (props) => {
         console.log("Username:", email);
         console.log("Password:", password);
 
-        fetch(
-            "https://heuristic-evaluation-api-dev-dres.4.us-1.fl0.io/api/login",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ email, password }),
-            }
-        )
+        fetch("web-production-1635.up.railway.app/api/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email, password }),
+        })
             .then((response) => response.json())
             .then((data) => {
                 localStorage.setItem("token", data.token);

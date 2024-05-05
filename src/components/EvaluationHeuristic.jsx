@@ -63,7 +63,7 @@ const EvaluationHeuristic = ({ idProject, datos, setHeuristicName }) => {
         }).toString();
 
         const postDataUrl =
-            "https://heuristic-evaluation-api-dev-dres.4.us-1.fl0.io/api/evaluate";
+            "https://web-production-1635.up.railway.app/api/evaluate";
 
         const fetchData = async () => {
             try {
